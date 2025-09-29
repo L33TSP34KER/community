@@ -2,7 +2,7 @@ package svg
 
 import (
 	b64 "encoding/base64"
-	svg "gno.land/r/poulpy1337/ui_lib/svg"
+	svg "gno.land/p/poulpy1337/ui_lib/svg"
 
 	"gno.land/p/demo/ufmt"
 )
