@@ -37,17 +37,5 @@ func Render(args string) string {
 	)
 	out += "# ui_lib\n\n"
 	out += "While playing with gno i felt the lack of widget, so i made that library who give back some element of customization.\n\nand to make gno applications more dynamic, possibility are endless.\n"
-	out += "# Examples"
-	out += getRenderSvg(canvas1.Render())
-	out += "\n\n"
-	out += dashboardCard()
-	out += "\n\n"
-	out += dataTableRow()
-	out += "\n\n"
-	out += gameOfLifeFrame()
-	out += "\n\n"
-	out += multiColorProgressBar()
-	out += "\n\n"
-	out += steppedProgressBar()
 	return out
 }
