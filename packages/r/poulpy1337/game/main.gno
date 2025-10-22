@@ -1,8 +1,10 @@
 package game
 
 import (
-	"strconv"
 	"chain/runtime"
+	"strconv"
+	"strings"
+	"time"
 )
 
 
@@ -93,6 +95,12 @@ func OpenDailyChest(cur realm) string {
 			continue
 		}
 		
+
+		if time.Since(players[i].LastDailyChest) < 24*time.Hour{
+			players[i].Render = "Daily chest already open please wait 24h"
+			return "";
+		}
+		players[i].LastDailyChest = time.Now()
 		
 		reward := generateChestRewards(&players[i])
 		
@@ -105,31 +113,23 @@ func OpenDailyChest(cur realm) string {
 		players[i].Coins += reward.Coins
 		players[i].Experience += reward.Experience
 		
+		players[i].updateLevel();
 		
-		newLevel := players[i].Experience / 1000
-		if newLevel > players[i].Level {
-			players[i].Level = newLevel
-			
-			players[i].Strength += 5
-			players[i].Defense += 5
-			players[i].Magic += 5
-		}
-		
-		players[i].LastDailyChest++ 
+		players[i].LastDailyChest = time.Now()
 		
 		
-		out := "Daily Chest Opened! - "
-		out += "Rewards: - "
+		out := "# Daily Chest Opened! \n\n"
+		out += "Rewards: \n\n"
 		for _, item := range reward.Items {
 			rarityStr := getRarityString(item.Rarity)
-			out += "  " + rarityStr + " " + item.Name + " (" + item.Category + ") - "
+			out += " - " + rarityStr + " " + item.Name + " (" + item.Category + ") \n\n"
 		}
-		out += "Coins: +" + strconv.Itoa(reward.Coins) + " (Total: " + strconv.Itoa(players[i].Coins) + ") - "
-		out += "Experience: +" + strconv.Itoa(reward.Experience) + " (Total: " + strconv.Itoa(players[i].Experience) + ") - "
+		out += "\n\nCoins: +" + strconv.Itoa(reward.Coins) + " (Total: " + strconv.Itoa(players[i].Coins) + ") \n"
+		out += "Experience: +" + strconv.Itoa(reward.Experience) + " (Total: " + strconv.Itoa(players[i].Experience) + ") \n"
 		players[i].updateLevel()
-		out += "Level: " + strconv.Itoa(players[i].Level) 
-		
-		return out
+		out += "Level: " + strconv.Itoa(players[i].Level)  + "\n"
+		players[i].Render = out;
+		return ""
 	}
 	
 	return "No user found. Please create an account first!"
@@ -154,22 +154,52 @@ func getRarityString(rarity int) string {
 	}
 }
 
-func CreateUser(cur realm, username string) {
+func CreateUser(cur realm, username string) string {
+	username = strings.TrimSpace(username)
+
+	for _, r := range username {
+		if !((r >= 'a' && r <= 'z') ||
+			(r >= 'A' && r <= 'Z') ||
+			(r >= '0' && r <= '9')) {
+			return "username can only contain letters and digits"
+		}
+	}
+
+	if username == "" {
+		return "username cannot be empty"
+	}
+
+	for _, p := range players {
+		if strings.EqualFold(p.Username, username) {
+			return "username '" + username + "' already exists"
+		}
+	}
+
 	seed += 1
-	players = append(players, User{
-		Level: 1,
-		Address: runtime.OriginCaller().String(),
-		Username: username,
-		Inventory: []Item{},
-		Coins: 100, 
+	newPlayer := User{
+		Level:      1,
+		Address:    runtime.OriginCaller().String(),
+		Username:   username,
+		Inventory:  []Item{},
+		Coins:      100,
 		Experience: 0,
-		Strength: 10,
-		Defense: 10,
-		Magic: 10,
-		MaxHP: 100,
-		CurrentHP: 100,
-	})
+		Strength:   10,
+		Defense:    10,
+		Magic:      10,
+		MaxHP:      100,
+		CurrentHP:  100,
+		LastDailyChest: time.Now(),
+	}
+
+	newPlayer.Render = "## Welcome to the Realm of Chains RPG!\n\n" +
+	"Your journey begins now, " + username + ".\n" +
+	"All gameplay happens through the blockchain contract use its functions to explore, battle, and earn rewards.\n\n" +
+	"Check the contract interface to start your adventure!"
+
+	players = append(players, newPlayer)
+	return "Welcome"
 }
+
 
 func GetInventory(cur realm) string {
 	call_address := runtime.OriginCaller().String()
@@ -179,9 +209,9 @@ func GetInventory(cur realm) string {
 			continue
 		}
 		
-		out := "Inventory of " + players[i].Username + " - "
-		out += "Level: " + strconv.Itoa(players[i].Level) + " | Coins: " + strconv.Itoa(players[i].Coins) + " - "
-		out += "STR: " + strconv.Itoa(players[i].Strength) + " | DEF: " + strconv.Itoa(players[i].Defense) + " | MAG: " + strconv.Itoa(players[i].Magic) + " --- "
+		out := "Inventory of " + players[i].Username + " \n\n "
+		out += "Level: " + strconv.Itoa(players[i].Level) + " | Coins: " + strconv.Itoa(players[i].Coins) + " \n\n "
+		out += "STR: " + strconv.Itoa(players[i].Strength) + " | DEF: " + strconv.Itoa(players[i].Defense) + " | MAG: " + strconv.Itoa(players[i].Magic) + " \n\n"
 		
 		if len(players[i].Inventory) == 0 {
 			return out + "Empty inventory. Open your daily chest!"
@@ -193,25 +223,35 @@ func GetInventory(cur realm) string {
 		}
 		
 		for category, items := range categories {
-			out += category + "s: - "
+			out += "\n\n### " + category + "s: \n\n"
 			for _, item := range items {
-				out += "  " + getRarityString(item.Rarity) + " " + item.Name + " "
+				out += " - " + getRarityString(item.Rarity) + " " + item.Name + "\n\n"
 			}
-			out += "               "
+			out += "\n\n"
 		}
 		
-		return out
+		players[i].Render = out
 	}
 	
 	return "No user found!"
 }
 
-func Random(_ realm) {
-	seed += 1
-}
+func Render(path string) string {
+	parts := strings.Split(path, "=")
 
-func Render(_ string) string {
+	if len(parts) >= 2 {
+		if parts[0] != "view" {
+			return "";
+		}
+		for i := 0; i < len(players); i++ {
+			if (players[i].Username == parts[1]) {
+				return players[i].Render
+			}
+		}
+		return "User not found please check the username"
+	}
 	out := "Game Stats\n\n"
+	out += "Tips: you can should go to :view=yourusername to see what you are doing\n\n"
 	out += "Total Players: " + strconv.Itoa(len(players)) + "\n\n"
 	
 	if len(players) > 0 {

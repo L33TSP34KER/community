@@ -10,8 +10,8 @@ func getDungeonList() []Dungeon {
 		{Name: "Goblin Cave", MinLevel: 1, MaxFloors: 5, DifficultyMultiplier: 1.0},
 		{Name: "Dark Forest", MinLevel: 5, MaxFloors: 10, DifficultyMultiplier: 1.3},
 		{Name: "Abandoned Mine", MinLevel: 10, MaxFloors: 15, DifficultyMultiplier: 1.5},
-		{Name: "Cursed Crypt", MinLevel: 15, MaxFloors: 20, DifficultyMultiplier: 1.8},
-		{Name: "Dragon's Lair", MinLevel: 25, MaxFloors: 25, DifficultyMultiplier: 2.2},
+		{Name: "Cursed Crypt", MinLevel: 15, MaxFloors: 20, DifficultyMultiplier: 2.8},
+		{Name: "Dragon's Lair", MinLevel: 26, MaxFloors: 25, DifficultyMultiplier: 3.2},
 		{Name: "Demon Fortress", MinLevel: 35, MaxFloors: 30, DifficultyMultiplier: 2.5},
 		{Name: "Void Temple", MinLevel: 45, MaxFloors: 40, DifficultyMultiplier: 3.0},
 		{Name: "Tower of Eternity", MinLevel: 60, MaxFloors: 50, DifficultyMultiplier: 4.0},
@@ -49,11 +49,17 @@ func generateEnemy(dungeon Dungeon, floor int) Enemy {
 	}
 	
 	baseHP := 30 + floor*10
-	baseDamage := 5 + floor*2
+	baseDamage := 7 + floor*2
 	baseDefense := 2 + floor
 	expReward := 20 + floor*5
 	coinReward := 10 + floor*3
+		
+	baseHP = int(float64(baseHP) * dungeon.DifficultyMultiplier)
+	baseDamage = int(float64(baseDamage) * dungeon.DifficultyMultiplier)
+	expReward = int(float64(expReward) * dungeon.DifficultyMultiplier)
+	coinReward = int(float64(coinReward) * dungeon.DifficultyMultiplier)
 	
+
 	if isBoss {
 		baseHP = int(float64(baseHP) * (1.5 * dungeon.DifficultyMultiplier))
 		baseDamage = int(float64(baseDamage) * (1.1 * dungeon.DifficultyMultiplier))
@@ -63,12 +69,6 @@ func generateEnemy(dungeon Dungeon, floor int) Enemy {
 		coinReward = coinReward * 5
 		enemyName = "BOSS: " + enemyName
 	}
-	
-	baseHP = int(float64(baseHP) * dungeon.DifficultyMultiplier)
-	baseDamage = int(float64(baseDamage) * dungeon.DifficultyMultiplier)
-	expReward = int(float64(expReward) * dungeon.DifficultyMultiplier)
-	coinReward = int(float64(coinReward) * dungeon.DifficultyMultiplier)
-	
 	return Enemy{
 		Name: enemyName,
 		Level: dungeon.MinLevel + (floor * 2),
@@ -126,7 +126,7 @@ func calculatePlayerDefense(player *User) int {
 	return baseDefense
 }
 
-func ListDungeons(cur realm) string {
+func ListDungeons(cur realm) {
 	call_address := runtime.OriginCaller().String()
 	
 	dungeons := getDungeonList()
@@ -139,31 +139,41 @@ func ListDungeons(cur realm) string {
 		}
 	}
 	
-	out := "Available Dungeons:\n\n"
+
+	out := "# Available Dungeons:\n\n\n\n"
+
+
+	out += "| Index | Name | Level | Status | Floor | Difficulty |\n| ---- | ---- | ---- | ---- | ---- | ---- |\n"
 	
 	for i, dungeon := range dungeons {
-		out += strconv.Itoa(i) + ". " + dungeon.Name + "\n"
-		out += "   Min Level: " + strconv.Itoa(dungeon.MinLevel)
+		out += "|" + strconv.Itoa(i) + " | " + dungeon.Name + "  | "
+		out += "   Min Level: " + strconv.Itoa(dungeon.MinLevel) + "  | " 
 		
 		if userLevel < dungeon.MinLevel {
-			out += " LOCKED"
+			out += " LOCKED  "
 		} else {
-			out += " OPEN"
+			out += " OPEN  "
 		}
 		
-		out += "\n   Floors: " + strconv.Itoa(dungeon.MaxFloors) + "\n"
-		out += "   Difficulty: "
+		out += "| Floors: " + strconv.Itoa(dungeon.MaxFloors) + " |"
+		out += "Difficulty: "
 		
 		stars := int(dungeon.DifficultyMultiplier)
 		for j := 0; j < stars; j++ {
 			out += "⭐"
 		}
-		out += "\n\n"
+		out += "|\n"
 	}
 	
 	out += "Use EnterDungeon(index) to start!"
+
+	for i := range players {
+		if players[i].Address == call_address {
+			userLevel = players[i].Level
+			players[i].Render = out
+		}
+	}
 	
-	return out
 }
 
 func EnterDungeon(cur realm, dungeonIndex int) string {
@@ -184,25 +194,18 @@ func EnterDungeon(cur realm, dungeonIndex int) string {
 		}
 		
 		if players[i].Level < selectedDungeon.MinLevel {
-			return "Level " + strconv.Itoa(selectedDungeon.MinLevel) + " required for " + selectedDungeon.Name + "!"
+			players[i].Render = "Level " + strconv.Itoa(selectedDungeon.MinLevel) + " required for " + selectedDungeon.Name + "!"
+			return ""
 		}
 		
 		players[i].CurrentHP = players[i].MaxHP
 		players[i].CurrentDungeon = dungeonIndex
 		players[i].DungeonProgress = 1
-		
-		enemy := generateEnemy(selectedDungeon, 1)
-		
+
 		out := "Entered: " + selectedDungeon.Name + "\n"
-		out += "Floor 1/" + strconv.Itoa(selectedDungeon.MaxFloors) + "\n\n"
-		out += "Enemy Encountered!\n"
-		out += enemy.Name + " (Lvl " + strconv.Itoa(enemy.Level) + ")\n"
-		out += "HP: " + strconv.Itoa(enemy.HP) + "/" + strconv.Itoa(enemy.MaxHP) + "\n"
-		out += "ATK: " + strconv.Itoa(enemy.Damage) + " | DEF: " + strconv.Itoa(enemy.Defense) + "\n\n"
-		out += "Your HP: " + strconv.Itoa(players[i].CurrentHP) + "/" + strconv.Itoa(players[i].MaxHP) + "\n"
 		out += "Use AttackEnemy() to fight!"
-		
-		return out
+		players[i].Render = out
+		return ""
 	}
 	
 	return "No user found!"
@@ -228,17 +231,16 @@ func AttackEnemy(cur realm) string {
 		out += currentDungeon.Name + "\n"
 		out += "Starting HP: " + strconv.Itoa(players[i].CurrentHP) + "/" + strconv.Itoa(players[i].MaxHP) + "\n\n"
 		
-		// Fight through all floors
 		for players[i].DungeonProgress <= currentDungeon.MaxFloors {
+			players[i].updateLevel();
 			enemy := generateEnemy(currentDungeon, players[i].DungeonProgress)
 			
-			out += "=== FLOOR " + strconv.Itoa(players[i].DungeonProgress) + "/" + strconv.Itoa(currentDungeon.MaxFloors) + " ===\n"
-			out += enemy.Name + " (Lvl " + strconv.Itoa(enemy.Level) + ")\n"
+			out += "___\n\n### === FLOOR " + strconv.Itoa(players[i].DungeonProgress) + "/" + strconv.Itoa(currentDungeon.MaxFloors) + " ===\n\n"
+			out += "*" + enemy.Name + "* (Lvl " + strconv.Itoa(enemy.Level) + ")\n"
 			out += "Enemy HP: " + strconv.Itoa(enemy.HP) + "\n\n"
 			
 			roundNum := 1
 			
-			// Fight current enemy
 			for {
 				out += "Round " + strconv.Itoa(roundNum) + ": "
 				
@@ -252,26 +254,28 @@ func AttackEnemy(cur realm) string {
 				out += "You deal " + strconv.Itoa(actualDamage) + " dmg"
 				
 				if enemy.HP <= 0 {
-					out += " - Enemy defeated!\n"
+					out += " - Enemy defeated!\n\n"
 					
 					players[i].Experience += enemy.ExpReward
 					players[i].Coins += enemy.CoinReward
 					
-					out += "Rewards: +" + strconv.Itoa(enemy.CoinReward) + " coins, +" + strconv.Itoa(enemy.ExpReward) + " exp\n"
+					out += "Rewards: +" + strconv.Itoa(enemy.CoinReward) + " coins, +" + strconv.Itoa(enemy.ExpReward) + " exp\n\n"
 					
 					players[i].updateLevel()
 					
 					if enemy.IsBoss {
 						reward := generateChestRewards(&players[i])
-						out += "\nBOSS DEFEATED! Loot:\n"
+						out += "\n# BOSS DEFEATED! Loot:\n\n"
 						for _, item := range reward.Items {
 							players[i].Inventory = append(players[i].Inventory, item)
-							out += "  " + item.Name + " (" + getRarityString(item.Rarity) + ")\n"
+							out += "  " + item.Name + " (" + getRarityString(item.Rarity) + ")\n\n"
 						}
 						players[i].DungeonProgress = 0
-						out += "\nDUNGEON COMPLETE!\n"
+						out += "\n\n# DUNGEON COMPLETE!\n\n"
 						out += "Final HP: " + strconv.Itoa(players[i].CurrentHP) + "/" + strconv.Itoa(players[i].MaxHP)
-						return out
+
+						players[i].Render = out
+						return ""
 					}
 					
 					healAmount := players[i].MaxHP / 10
@@ -280,7 +284,7 @@ func AttackEnemy(cur realm) string {
 						players[i].CurrentHP = players[i].MaxHP
 					}
 					
-					out += "Healed +" + strconv.Itoa(healAmount) + " HP\n"
+					out += "Healed +" + strconv.Itoa(healAmount) + " HP\n\n"
 					out += "Current HP: " + strconv.Itoa(players[i].CurrentHP) + "/" + strconv.Itoa(players[i].MaxHP) + "\n\n"
 					
 					break
@@ -293,7 +297,7 @@ func AttackEnemy(cur realm) string {
 				players[i].CurrentHP -= enemyDamage
 				
 				out += ", Enemy deals " + strconv.Itoa(enemyDamage) + " dmg"
-				out += " (Your HP: " + strconv.Itoa(players[i].CurrentHP) + "/" + strconv.Itoa(players[i].MaxHP) + ")\n"
+				out += " (Your HP: " + strconv.Itoa(players[i].CurrentHP) + "/" + strconv.Itoa(players[i].MaxHP) + ")\n\n"
 				
 				if players[i].CurrentHP <= 0 {
 					players[i].CurrentHP = players[i].MaxHP
@@ -303,10 +307,12 @@ func AttackEnemy(cur realm) string {
 					if players[i].Coins < 0 {
 						players[i].Coins = 0
 					}
-					out += "\nDEFEATED on floor " + strconv.Itoa(players[i].DungeonProgress) + "!\n"
-					out += "Lost " + strconv.Itoa(coinLoss) + " coins.\n"
+					out += "\n\nDEFEATED on floor " + strconv.Itoa(players[i].DungeonProgress) + "!\n\n"
+					out += "Lost " + strconv.Itoa(coinLoss) + " coins.\n\n"
 					out += "HP restored to " + strconv.Itoa(players[i].MaxHP) + "."
-					return out
+					players[i].updateLevel();
+					players[i].Render = out
+					return ""
 				}
 				
 				roundNum++
@@ -315,7 +321,7 @@ func AttackEnemy(cur realm) string {
 			players[i].DungeonProgress++
 		}
 		
-		return out
+		return ""
 	}
 	
 	return "No user found!"

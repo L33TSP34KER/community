@@ -1,6 +1,9 @@
 package game
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+)
 
 const (
 	CategoryWeapon = "Weapon"
@@ -38,7 +41,7 @@ type User struct {
 	Address string
 	Username string
 	Inventory []Item
-	LastDailyChest int
+	LastDailyChest time.Time
 	Coins int
 	Experience int
 	Strength int
@@ -48,6 +51,7 @@ type User struct {
 	MaxHP int
 	DungeonProgress int
 	CurrentDungeon int
+	Render string
 }
 
 type ChestReward struct {
@@ -61,6 +65,7 @@ func getItemPool() []Item {
 }
 
 func random(max int) int {
+	seed += 1
 	r := rand.New(rand.NewPCG(seed, 0))
 	return r.Int() % max
 }
@@ -72,7 +77,7 @@ func (u *User) updateLevel() {
 		u.Defense += 5
 		u.Magic += 5
 		u.Experience = 0
-		u.MaxHP *= u.Level
+		u.MaxHP += u.Level * (5 / 4)
 		u.CurrentHP = u.MaxHP
 	}
 }
@@ -102,3 +107,6 @@ type Dungeon struct {
 	MaxFloors int
 	DifficultyMultiplier float64
 }
+
+
+

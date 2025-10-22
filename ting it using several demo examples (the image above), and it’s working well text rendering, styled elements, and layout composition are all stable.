@@ -1,0 +1,352 @@
+[33mcommit 978b2d3e74a767b4b914501b4dcc77479e9f50b5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Morgan Brethome <morgan.brethome@epitech.eu>
+Date:   Thu Oct 9 14:29:40 2025 +0200
+
+    trying to fix ci
+
+[33mcommit 54f42e72678d5ed895419144c56936441601650a[m
+Author: Morgan Brethome <morgan.brethome@epitech.eu>
+Date:   Thu Oct 9 14:27:14 2025 +0200
+
+    trying to fix ci
+
+[33mcommit 1b7cdc1fc875a4fb1c320eabb6855b9759edace9[m
+Author: Morgan Brethome <morgan.brethome@epitech.eu>
+Date:   Wed Oct 8 10:06:02 2025 +0200
+
+    dungeon game WIP
+
+[33mcommit 511ab68c6b111ca155976a7fb2b8e67583c92b34[m
+Merge: b62681e cbbdcda
+Author: L33TSP34KER <morgan.brethome@epitech.eu>
+Date:   Tue Oct 7 16:54:40 2025 +0200
+
+    Merge branch 'gnoverse:main' into main
+
+[33mcommit cbbdcda51581cfde47c7d1f58f77da459c23612c[m
+Merge: dde7f68 3073783
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Mon Oct 6 15:15:51 2025 +0200
+
+    feat: add r/vik000/gnoplace
+    
+    feat: add r/vik000/gnoplace
+
+[33mcommit 3073783d40444061d59751457a3b178808571d37[m
+Author: Romain Gay <romain@diduenjoy.com>
+Date:   Fri Oct 3 21:52:56 2025 +0200
+
+    add tests
+
+[33mcommit 7445878453fc3f164b1f376e41db51f1b598dd26[m
+Author: Romain Gay <romain@diduenjoy.com>
+Date:   Fri Oct 3 21:52:51 2025 +0200
+
+    fmt + std split fix
+
+[33mcommit dd3a7a4250e1a60ae8e7d22993d77540716efdf6[m
+Author: Romain Gay <romain@diduenjoy.com>
+Date:   Fri Oct 3 21:52:26 2025 +0200
+
+    use p/nt/ownable
+
+[33mcommit dde7f684959388da07b16cd2b1ac293730261d31[m
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Thu Oct 2 18:19:35 2025 +0200
+
+    Update README.md
+
+[33mcommit 6826e7227afcb07d80decee2d4258efee8c818ba[m
+Merge: 8d89e2a d4d7758
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Thu Oct 2 18:12:27 2025 +0200
+
+    Merge branch 'main' into main
+
+[33mcommit d4d775874dcdb8b0edbc04e0142b75d1722f92bb[m
+Merge: a0775b8 31e7492
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Thu Oct 2 18:11:26 2025 +0200
+
+    Merge pull request #7 from gnoverse/feat/ci
+    
+    feat: basic CI
+
+[33mcommit 31e74924be6347d722414457a26f6ed4499d3287[m
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Thu Oct 2 18:10:00 2025 +0200
+
+    Update packages/Makefile
+    
+    Co-authored-by: Guilhem Fanton <8671905+gfanton@users.noreply.github.com>
+
+[33mcommit 041b8bdb3a3641f9b1d4ea64bd1f4c0e5b7ab81d[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Thu Oct 2 18:07:25 2025 +0200
+
+    rm
+
+[33mcommit e737718819a60f5cbdeddd14974502c7c1421af2[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Thu Oct 2 18:05:38 2025 +0200
+
+    update gno ver
+
+[33mcommit c46797cea079bb092ed8c626f01b4a858c4d1615[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Thu Oct 2 18:02:06 2025 +0200
+
+    fix std
+
+[33mcommit be6d49166b615dc84c0adc3897686af85c0dcf4c[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Thu Oct 2 15:34:08 2025 +0200
+
+    tidy
+
+[33mcommit c0089b23e6e78c4b0196703925332e3ab0ea095e[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Sep 30 21:04:42 2025 +0900
+
+    tidyups
+
+[33mcommit b62681e80f066dd8bd33f818aadb22bfd2ef294a[m
+Author: tryedandcatched <wyene@archlinux.army>
+Date:   Mon Sep 29 10:11:30 2025 +0200
+
+    fixed symlink
+
+[33mcommit 271b641234834c36f4962b9eb7c843135f71d616[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Mon Sep 29 16:17:28 2025 +0900
+
+    rm master branch
+
+[33mcommit 8d89e2a45528a424b5fc251d2595bc2c21b57d19[m
+Author: Romain Gay <romain@diduenjoy.com>
+Date:   Wed Sep 24 18:27:46 2025 +0200
+
+    add gnoplace
+
+[33mcommit 41464cf67c1713a56eb02665a249a3b779acf740[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 24 14:19:15 2025 +0900
+
+    add makefile
+
+[33mcommit 70a9f0d07e8b4d77059b6b978c4129d81c1c6415[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 24 13:32:32 2025 +0900
+
+    rename jobs
+
+[33mcommit 3468ebc02b8091e0cadd97ee1220543ace0fe562[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 24 13:31:57 2025 +0900
+
+    rm tools repo
+
+[33mcommit 7448e6c0e97687b7c869686731c4ac2a0521906d[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 24 13:31:28 2025 +0900
+
+    fix
+
+[33mcommit 88823906e43dcd10317ee514458a26d514346985[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 24 13:28:14 2025 +0900
+
+    gobin
+
+[33mcommit c30e6606e2b93428d2b9051f3aa029e683add33a[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 24 13:23:47 2025 +0900
+
+    add gomod
+
+[33mcommit f063d97549ddeb93c3fefbcf14322fc699cb3eb8[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Sep 23 11:28:53 2025 +0900
+
+    fix failing test
+
+[33mcommit 770158f4d3593e74a7085f918f0742507ce6a16f[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Sep 23 11:26:27 2025 +0900
+
+    failing test
+
+[33mcommit 269dd56530528dcdb60c63cb486b2ae54bedc008[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Sep 23 11:24:36 2025 +0900
+
+    rename jobs
+
+[33mcommit 990a311018b7cd371f2a9584bc65afda4f4e74de[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Sep 23 11:22:23 2025 +0900
+
+    split CI
+
+[33mcommit 906cb7714e923eb4ef9bf869791fbb722a1367a2[m
+Author: tryedandcatched <wyene@archlinux.army>
+Date:   Mon Sep 22 15:34:15 2025 +0200
+
+    [REFACTO] move lib into package folder & separate the testing realm from the lib
+
+[33mcommit b7b2844fd3d72469c6f194c1eeff2245e3a0c747[m
+Author: tryedandcatched <wyene@archlinux.army>
+Date:   Mon Sep 22 15:04:40 2025 +0200
+
+    [ADD] svg lib
+
+[33mcommit a4aca4b36c7d07d6015a095db91ce386067a8515[m
+Merge: f2d901f a0775b8
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Thu Sep 18 10:42:51 2025 +0900
+
+    Merge branch 'main' into feat/ci
+
+[33mcommit f2d901f39cae66498a1876ce57dea48915efafd4[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Thu Sep 18 10:38:44 2025 +0900
+
+    ci + gnowork
+
+[33mcommit 0ad5d0f51fe0707f8f2a20b4b7d4c85bc8543ea4[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Thu Sep 18 10:34:08 2025 +0900
+
+    add inital ci
+
+[33mcommit a0775b846afcf7c1332183610924434de21942ad[m
+Merge: 36268c6 defba2d
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Wed Sep 17 17:09:45 2025 +0200
+
+    Merge pull request #6 from Tchips46/feat/pokemon-realm
+    
+    feat: pokemon fighter
+
+[33mcommit defba2d16270b69227fcbfc7286840c28b1f47e9[m
+Author: Leo <leo.outmizguine@epitech.eu>
+Date:   Wed Sep 17 23:01:20 2025 +0900
+
+    feat: pokemon fighter
+
+[33mcommit 36268c64eba5778a2bc256c8b55a7f336e320cbe[m
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Fri Sep 12 18:22:25 2025 +0200
+
+    feat: update readme
+
+[33mcommit b4754e6649a9fb0b27560a180b1a58564d325e21[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Fri Sep 12 18:21:53 2025 +0200
+
+    feat: add leon/svgbtn
+
+[33mcommit 5e50c51a6bb664581ecd0f0f896206dfd315bc59[m
+Merge: 8dd39db 72589cb
+Author: Leon <33522493+leohhhn@users.noreply.github.com>
+Date:   Fri Sep 12 18:19:37 2025 +0200
+
+    Merge pull request #5 from gnoverse/feat/setup
+    
+    feat: set up pacakges/ folder
+
+[33mcommit 72589cbc85a3e9b2fb0eb71c3b7fb54bfa0a379c[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Fri Sep 12 18:17:39 2025 +0200
+
+    update readme
+
+[33mcommit 041c1ab0145735bb3c56aeb59d6c2630c4226760[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Fri Sep 12 18:15:46 2025 +0200
+
+    add leon home
+
+[33mcommit cea09ba3afeba73cd5644636cf14221b785dd37c[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 10 21:25:36 2025 +0200
+
+    setup
+
+[33mcommit 8dd39dbd1ccfc004e174e218f9afab06d6bf694d[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 10 20:47:32 2025 +0200
+
+    chore: add issue link
+
+[33mcommit 5126d02845023c26a0462b1a5fbb22a4faa18e3c[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 10 20:44:58 2025 +0200
+
+    chore: fix linebreak
+
+[33mcommit 7a64d43b88f23f1e172e6e176be42377568e6562[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Wed Sep 10 20:44:25 2025 +0200
+
+    brush up readme
+
+[33mcommit be35ab835b6efb030a722bc4c3acc75ac5e62bc0[m
+Author: Michelle <117160070+michelleellen@users.noreply.github.com>
+Date:   Thu Sep 4 19:07:40 2025 +0200
+
+    Update README.md
+
+[33mcommit a3b836b73a3487edcd86cd4d51a4fce5d74e28a5[m
+Author: Michelle <117160070+michelleellen@users.noreply.github.com>
+Date:   Thu Sep 4 19:05:38 2025 +0200
+
+    Update README.md
+
+[33mcommit b20e0213901d74521a0dbe8e4d5034504d13885a[m
+Author: Michelle <117160070+michelleellen@users.noreply.github.com>
+Date:   Thu Sep 4 19:03:13 2025 +0200
+
+    Create README.md
+
+[33mcommit 64221ed1f39eed265729aaa3a22cd6529f6bae62[m
+Author: Michelle <117160070+michelleellen@users.noreply.github.com>
+Date:   Thu Sep 4 15:27:39 2025 +0200
+
+    Delete examples
+
+[33mcommit 66a96b5802a3b5b3ffb3f83b5d6f6a9fb8938d5e[m
+Author: Michelle <117160070+michelleellen@users.noreply.github.com>
+Date:   Thu Sep 4 15:21:32 2025 +0200
+
+    Create examples folder
+
+[33mcommit 625369c3af92f44eade275212fa1d16cdcbabd77[m
+Author: Michelle <117160070+michelleellen@users.noreply.github.com>
+Date:   Tue Aug 12 13:47:14 2025 +0200
+
+    Update README.md
+
+[33mcommit 0cee47a80ad07a304b79af0b7f9a53fd1dcc26ac[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Jun 17 13:26:51 2025 +0200
+
+    fix readme
+
+[33mcommit 41398e64eaf887a81becf0664651a334a143dfd8[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Jun 17 13:10:25 2025 +0200
+
+    update readme
+
+[33mcommit f93caba19d11377f4da969527defd27cf5c101d2[m
+Author: leohhhn <hudakleon@gmail.com>
+Date:   Tue Jun 17 12:35:42 2025 +0200
+
+    add readme
+
+[33mcommit 2eb0bc3958703f601315a4ac33053a8d001bdacc[m
+Author: Manfred Touron <94029+moul@users.noreply.github.com>
+Date:   Tue May 20 15:12:33 2025 +0200
+
+    Initial commit
