@@ -26,4 +26,3 @@ func (e *SvgElement) renderChildren() string {
 	}
 	return childrenStr.String()
 }
-

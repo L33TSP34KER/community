@@ -23,4 +23,3 @@ func (g *SvgGroup) render() string {
 	return `<g>` + children + `
 </g>`
 }
-

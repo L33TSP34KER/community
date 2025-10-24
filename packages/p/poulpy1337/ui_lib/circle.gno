@@ -13,7 +13,7 @@ func NewSvgCircle(x, y, radius int, color string, class string, children ...SvgE
 	return &SvgCircle{
 		SvgElement: SvgElement{
 			color:    color,
-			class:	  class,
+			class:    class,
 			x:        x,
 			y:        y,
 			children: children,
@@ -25,17 +25,17 @@ func NewSvgCircle(x, y, radius int, color string, class string, children ...SvgE
 func (c *SvgCircle) render() string {
 	children := c.renderChildren()
 	if children == "" {
-		return `<circle cx="` + strconv.Itoa(c.x) + 
-			`" cy="` + strconv.Itoa(c.y) + 
-			`" r="` + strconv.Itoa(c.radius) + 
-			`" class="` + c.class + 
+		return `<circle cx="` + strconv.Itoa(c.x) +
+			`" cy="` + strconv.Itoa(c.y) +
+			`" r="` + strconv.Itoa(c.radius) +
+			`" class="` + c.class +
 			`" fill="` + c.color + `"/>`
 	}
 	return `<g>
-  <circle cx="` + strconv.Itoa(c.x) + 
-		`" cy="` + strconv.Itoa(c.y) + 
-		`" r="` + strconv.Itoa(c.radius) + 
-		`" class="` + c.class + 
+  <circle cx="` + strconv.Itoa(c.x) +
+		`" cy="` + strconv.Itoa(c.y) +
+		`" r="` + strconv.Itoa(c.radius) +
+		`" class="` + c.class +
 		`" fill="` + c.color + `"/>` + children + `
 </g>`
 }

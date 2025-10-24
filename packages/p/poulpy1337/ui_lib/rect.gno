@@ -13,7 +13,7 @@ func NewSvgRect(x, y, width, height int, roundness int, color string, class stri
 	return &SvgRect{
 		SvgElement: SvgElement{
 			color:    color,
-			class:	  class,
+			class:    class,
 			x:        x,
 			y:        y,
 			width:    width,
@@ -27,21 +27,21 @@ func NewSvgRect(x, y, width, height int, roundness int, color string, class stri
 func (r *SvgRect) render() string {
 	children := r.renderChildren()
 	if children == "" {
-		return `<rect x="` + strconv.Itoa(r.x) + 
-			`" y="` + strconv.Itoa(r.y) + 
-			`" width="` + strconv.Itoa(r.width) + 
-			`" height="` + strconv.Itoa(r.height) + 
-			`" rx="` + strconv.Itoa(r.roundness) + 
-			`" class="` + r.class + 
+		return `<rect x="` + strconv.Itoa(r.x) +
+			`" y="` + strconv.Itoa(r.y) +
+			`" width="` + strconv.Itoa(r.width) +
+			`" height="` + strconv.Itoa(r.height) +
+			`" rx="` + strconv.Itoa(r.roundness) +
+			`" class="` + r.class +
 			`" fill="` + r.color + `"/>`
 	}
 	return `<g>
-  <rect x="` + strconv.Itoa(r.x) + 
-		`" y="` + strconv.Itoa(r.y) + 
-		`" width="` + strconv.Itoa(r.width) + 
-		`" height="` + strconv.Itoa(r.height) + 
-		`" rx="` + strconv.Itoa(r.roundness) + 
-		`" class="` + r.class + 
+  <rect x="` + strconv.Itoa(r.x) +
+		`" y="` + strconv.Itoa(r.y) +
+		`" width="` + strconv.Itoa(r.width) +
+		`" height="` + strconv.Itoa(r.height) +
+		`" rx="` + strconv.Itoa(r.roundness) +
+		`" class="` + r.class +
 		`" fill="` + r.color + `"/>` + children + `
 </g>`
 }
